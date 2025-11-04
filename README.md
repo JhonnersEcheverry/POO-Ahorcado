@@ -1,36 +1,64 @@
 # 🎮 Ahorcado - Juego del Ahorcado en Java
 
-Un juego del ahorcado implementado en Java con arquitectura MVC, diseñado para ser fácilmente extensible con diferentes interfaces de usuario (Consola y Swing).
+**Versión 0.0.1**
+
+Un juego del ahorcado implementado en Java con arquitectura MVC **UI-agnostic**, diseñado para ser fácilmente extensible con diferentes interfaces de usuario (Consola, Swing, Web, etc.).
 
 ## 📋 Características
 
 - ✅ **Sistema de dificultades**: Fácil, Medio y Difícil (configurables)
-- ✅ **Múltiples categorías**: Animales, Países, Deportes, Objetos, Comidas (configurables)
+- ✅ **Categorías dinámicas**: Cargadas desde configuración (sin recompilar)
 - ✅ **Sistema de pistas**: 3 tipos de pistas disponibles
 - ✅ **Configuración externa**: Palabras en JSON, categorías en Properties
 - ✅ **Arquitectura MVC**: Separación clara entre lógica y UI
+- ✅ **UI-Agnostic**: La lógica no depende de ninguna tecnología de interfaz específica
 - ✅ **Procesamiento JSON**: Usa Gson para parsing robusto
 - ✅ **Configuración centralizada**: Categorías gestionadas desde archivo de propiedades
 
 ## 🏗️ Arquitectura
 
-El proyecto sigue el patrón **MVC (Model-View-Controller)** para permitir fácil intercambio entre diferentes interfaces de usuario.
+El proyecto sigue el patrón **MVC (Model-View-Controller)** con diseño **UI-agnostic**, permitiendo intercambiar interfaces sin modificar la lógica del juego.
 
 ```
-┌─────────────┐
-│   GameView  │ ← Interfaz (Contrato)
-│  (Interface)│
-└──────┬──────┘
-       │ implementa
-       ├─── ConsoleGameView (Consola)
-       └─── SwingGameView (Swing)
-              │
-              ▼
-┌──────────────────┐      ┌──────────┐
-│ GameController   │─────▶│   Game   │
-│  (Coordina)      │      │ (Lógica) │
-└──────────────────┘      └──────────┘
+┌─────────────────────────────────────────┐
+│         LÓGICA (UI-Agnostic)            │
+│  ┌──────────┐      ┌──────────┐        │
+│  │   Game   │      │ WordBank │        │
+│  │ (Lógica) │      │ (Datos)  │        │
+│  └─────┬────┘      └────┬─────┘        │
+└────────┼─────────────────┼──────────────┘
+         │                 │
+         └─────────┬───────┘
+                   │
+         ┌─────────▼─────────┐
+         │  GameController   │ ← Coordinador (UI-agnostic)
+         │  (No conoce UI)   │
+         └─────────┬─────────┘
+                   │ usa
+         ┌─────────▼─────────┐
+         │   GameView        │ ← Interfaz (Contrato)
+         │   (Interface)      │
+         └────┬──────┬───────┘
+              │      │ implementa
+    ┌─────────┘      └─────────┐
+    │                          │
+┌───▼────────┐        ┌───────▼──────┐
+│ Console    │        │ Swing        │
+│ GameView   │        │ GameView     │
+│ (Scanner)  │        │ (JFrame)     │
+└────────────┘        └──────────────┘
 ```
+
+### 🎯 ¿Qué significa UI-Agnostic?
+
+**UI-Agnostic** significa que la lógica del juego **no sabe ni le importa** qué tecnología de interfaz se está usando. Puede funcionar con:
+- ✅ Consola (Scanner)
+- ✅ Swing (JFrame)
+- ✅ JavaFX
+- ✅ Web (REST API)
+- ✅ Cualquier otra UI que implemente `GameView`
+
+**Ventaja:** Cambiar de UI solo requiere implementar `GameView`. La lógica permanece igual.
 
 Para más detalles, consulta [ARQUITECTURA.md](ARQUITECTURA.md).
 
@@ -45,22 +73,22 @@ Ahorcado/
 │   │   ├── Ahorcado.java              # Punto de entrada (Consola)
 │   │   ├── SwingApp.java              # Punto de entrada (Swing)
 │   │   ├── config/
-│   │   │   ├── CategoryManager.java   # Gestor de categorías (configuración)
-│   │   │   ├── Difficulty.java        # Niveles de dificultad
+│   │   │   ├── CategoryManager.java   # Gestor de categorías (Singleton)
+│   │   │   ├── Difficulty.java        # Niveles de dificultad (Enum)
 │   │   │   └── GameConfig.java        # Configuración del juego
 │   │   ├── data/
 │   │   │   ├── WordLoader.java        # Carga palabras desde JSON (Gson)
 │   │   │   └── WordsData.java         # DTO para mapeo JSON
 │   │   ├── logic/
-│   │   │   ├── Game.java              # Lógica del juego
+│   │   │   ├── Game.java              # Lógica del juego (UI-agnostic)
 │   │   │   └── WordBank.java          # Banco de palabras
 │   │   ├── model/
-│   │   │   ├── Category.java          # Enum de categorías
+│   │   │   ├── Category.java          # Clase de categorías (dinámica)
 │   │   │   └── WordEntry.java         # Modelo de palabra
 │   │   └── ui/
-│   │       ├── GameView.java          # Interfaz de UI
+│   │       ├── GameView.java          # Interfaz de UI (contrato)
 │   │       ├── GameState.java         # DTO de estado
-│   │       ├── GameController.java    # Controlador principal
+│   │       ├── GameController.java    # Controlador (UI-agnostic)
 │   │       ├── console/
 │   │       │   └── ConsoleGameView.java
 │   │       └── swing/
@@ -178,20 +206,32 @@ Edita `src/resources/words.json`:
 - `OBJETOS`
 - `COMIDAS`
 
-### Configurar Categorías
+### Configurar Categorías (Sin Recompilar)
+
+Las categorías son completamente dinámicas. Solo necesitas editar el archivo de configuración:
 
 Edita `src/resources/categories.properties`:
 
 ```properties
 # Lista de categorías separadas por comas
-categories=ANIMALES,PAISES,DEPORTES,OBJETOS,COMIDAS
+categories=ANIMALES,PAISES,DEPORTES,OBJETOS,COMIDAS,CIENCIA
 
 # Nombres de visualización (opcional)
 category.ANIMALES.display=Animales
 category.PAISES.display=Países
+category.CIENCIA.display=Ciencia
 ```
 
-**Nota:** Si agregas una nueva categoría, también debes agregarla al enum `Category.java` para mantener compatibilidad.
+**Ventajas:**
+- ✅ **No necesitas recompilar** el código
+- ✅ **No necesitas redesplegar** la aplicación
+- ✅ Solo edita el archivo y reinicia el juego
+- ✅ Las categorías se cargan automáticamente
+
+**Pasos para agregar una nueva categoría:**
+1. Edita `categories.properties` y agrega la categoría a la lista
+2. Agrega palabras con esa categoría en `words.json`
+3. Reinicia el juego → ¡Listo!
 
 ### Modificar Dificultades
 
@@ -223,20 +263,20 @@ Edita `src/game.properties` para configuraciones adicionales.
 - **Lenguaje**: Java 24
 - **Librerías**: Gson 2.10.1 (procesamiento JSON)
 - **Patrón**: MVC (Model-View-Controller)
-- **Arquitectura**: Separación de responsabilidades
+- **Arquitectura**: UI-Agnostic (independiente de tecnología de interfaz)
 - **Configuración**: JSON (palabras) + Properties (categorías y config)
-- **UI**: Consola (funcional) + Swing (básica con diálogos)
+- **UI**: Consola (funcional) + Swing (diálogos básicos)
 
 ## 📚 Conceptos Implementados
 
 ### Buenas Prácticas
 
 - ✅ **Separación de responsabilidades** (SRP)
-- ✅ **Inversión de dependencias** (DIP)
+- ✅ **Inversión de dependencias** (DIP) - GameController depende de GameView (interfaz)
 - ✅ **Open/Closed Principle** (extensible sin modificar)
 - ✅ **Configuration externalization** (sin valores hardcodeados)
 - ✅ **Testeable** (componentes desacoplados)
-- ✅ **Singleton Pattern** (CategoryManager)
+- ✅ **UI-Agnostic Design** (lógica independiente de UI)
 
 ### Patrones de Diseño
 
@@ -245,17 +285,20 @@ Edita `src/game.properties` para configuraciones adicionales.
 - **DTO**: GameState y WordsData para transferencia de datos
 - **Factory**: WordLoader para crear WordEntry
 - **Singleton**: CategoryManager para gestión centralizada
+- **Adapter**: Cada implementación de GameView adapta su UI al contrato
 
-## ✨ Mejoras Recientes
+## ✨ Características Técnicas
 
-- ✅ **Gson Integration**: Reemplazado parsing manual de JSON por Gson
+- ✅ **Gson Integration**: Procesamiento JSON robusto con Gson
 - ✅ **CategoryManager**: Configuración centralizada de categorías
-- ✅ **Validación mejorada**: Las categorías se validan contra configuración
-- ✅ **Código más robusto**: Manejo de errores mejorado
+- ✅ **Categorías Dinámicas**: Category como clase dinámica cargada desde configuración
+- ✅ **Sin Recompilación**: Agregar categorías solo requiere editar configuración
+- ✅ **Validación**: Las categorías se validan contra configuración
+- ✅ **Manejo de Errores**: Validación y mensajes de error claros
 
 ## 🚧 Próximos Pasos
 
-- [ ] Interfaz gráfica completa con Swing (actualmente usa diálogos básicos)
+- [ ] Interfaz gráfica completa con Swing (ventana con componentes)
 - [ ] Sistema de puntuación
 - [ ] Estadísticas de partidas
 - [ ] Modo multijugador
@@ -267,10 +310,28 @@ Edita `src/game.properties` para configuraciones adicionales.
 
 Este es un proyecto educativo. Siéntete libre de:
 - Agregar más palabras al JSON
+- Agregar nuevas categorías (solo edita `categories.properties`)
 - Mejorar la interfaz de consola
 - Implementar la UI de Swing completa
+- Crear nuevas implementaciones de `GameView` (JavaFX, Web, etc.)
 - Agregar tests unitarios
 - Mejorar la documentación
+
+## 🎯 Agregar una Nueva UI
+
+¿Quieres agregar una nueva interfaz? Solo implementa `GameView`:
+
+```java
+public class JavaFXGameView implements GameView {
+    // Implementar todos los métodos de GameView
+    // Usar componentes de JavaFX
+}
+
+// Uso:
+GameView view = new JavaFXGameView();
+GameController controller = new GameController(bank, view);
+controller.run();  // ← Mismo código, nueva UI!
+```
 
 ## 📝 Licencia
 
@@ -285,8 +346,8 @@ Proyecto educativo - Uso libre para fines educativos.
 
 ## 📖 Documentación Adicional
 
-- [ARQUITECTURA.md](ARQUITECTURA.md) - Detalles de la arquitectura MVC
+- [ARQUITECTURA.md](ARQUITECTURA.md) - Detalles de la arquitectura MVC y UI-agnostic
 
 ---
 
-**Desarrollado con ❤️ para aprender POO y buenas prácticas de programación**
+**Desarrollado con ❤️ para aprender POO, buenas prácticas y arquitectura UI-agnostic**
