@@ -7,7 +7,7 @@ Un juego del ahorcado implementado en Java con arquitectura MVC **UI-agnostic**,
 ## 📋 Características
 
 - ✅ **Sistema de dificultades**: Fácil, Medio y Difícil (configurables)
-- ✅ **Categorías dinámicas**: Cargadas desde configuración (sin recompilar)
+- ✅ **Categorías dinámicas**: Cargadas desde configuración
 - ✅ **Sistema de pistas**: 3 tipos de pistas disponibles
 - ✅ **Configuración externa**: Palabras en JSON, categorías en Properties
 - ✅ **Arquitectura MVC**: Separación clara entre lógica y UI
