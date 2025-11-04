@@ -1,0 +1,185 @@
+{
+  "words": [
+    {
+      "word": "JIRAFA",
+      "category": "ANIMALES",
+      "hint": "Mamífero de cuello largo"
+    },
+    {
+      "word": "TORTUGA",
+      "category": "ANIMALES",
+      "hint": "Caparazón"
+    },
+    {
+      "word": "ELEFANTE",
+      "category": "ANIMALES",
+      "hint": "Trompa larga"
+    },
+    {
+      "word": "LEON",
+      "category": "ANIMALES",
+      "hint": "Rey de la selva"
+    },
+    {
+      "word": "TIGRE",
+      "category": "ANIMALES",
+      "hint": "Rayas negras"
+    },
+    {
+      "word": "OSO",
+      "category": "ANIMALES",
+      "hint": "Pelaje grueso"
+    },
+    {
+      "word": "CABALLO",
+      "category": "ANIMALES",
+      "hint": "Cuatro patas y crin"
+    },
+    {
+      "word": "PERRO",
+      "category": "ANIMALES",
+      "hint": "Mejor amigo del hombre"
+    },
+    {
+      "word": "GATO",
+      "category": "ANIMALES",
+      "hint": "Miau"
+    },
+    {
+      "word": "COLOMBIA",
+      "category": "PAISES",
+      "hint": "Café y cumbia"
+    },
+    {
+      "word": "MEXICO",
+      "category": "PAISES",
+      "hint": "Mariachi"
+    },
+    {
+      "word": "ARGENTINA",
+      "category": "PAISES",
+      "hint": "Tango y fútbol"
+    },
+    {
+      "word": "BRASIL",
+      "category": "PAISES",
+      "hint": "Samba y carnaval"
+    },
+    {
+      "word": "ESPAÑA",
+      "category": "PAISES",
+      "hint": "Paella y flamenco"
+    },
+    {
+      "word": "FRANCIA",
+      "category": "PAISES",
+      "hint": "Torre Eiffel"
+    },
+    {
+      "word": "ITALIA",
+      "category": "PAISES",
+      "hint": "Pizza y pasta"
+    },
+    {
+      "word": "FUTBOL",
+      "category": "DEPORTES",
+      "hint": "Once por lado"
+    },
+    {
+      "word": "TENIS",
+      "category": "DEPORTES",
+      "hint": "Raqueta"
+    },
+    {
+      "word": "BALONCESTO",
+      "category": "DEPORTES",
+      "hint": "Canasta"
+    },
+    {
+      "word": "NATACION",
+      "category": "DEPORTES",
+      "hint": "En el agua"
+    },
+    {
+      "word": "CICLISMO",
+      "category": "DEPORTES",
+      "hint": "Bicicleta"
+    },
+    {
+      "word": "ATLETISMO",
+      "category": "DEPORTES",
+      "hint": "Pista y campo"
+    },
+    {
+      "word": "TECLADO",
+      "category": "OBJETOS",
+      "hint": "QWERTY"
+    },
+    {
+      "word": "MOCHILA",
+      "category": "OBJETOS",
+      "hint": "Carga libros"
+    },
+    {
+      "word": "LAPIZ",
+      "category": "OBJETOS",
+      "hint": "Para escribir"
+    },
+    {
+      "word": "CELULAR",
+      "category": "OBJETOS",
+      "hint": "Comunicación"
+    },
+    {
+      "word": "LIBRO",
+      "category": "OBJETOS",
+      "hint": "Contiene páginas"
+    },
+    {
+      "word": "MESA",
+      "category": "OBJETOS",
+      "hint": "Cuatro patas"
+    },
+    {
+      "word": "SILLA",
+      "category": "OBJETOS",
+      "hint": "Para sentarse"
+    },
+    {
+      "word": "AREPA",
+      "category": "COMIDAS",
+      "hint": "Maíz"
+    },
+    {
+      "word": "LASAGNA",
+      "category": "COMIDAS",
+      "hint": "Capas de pasta"
+    },
+    {
+      "word": "PIZZA",
+      "category": "COMIDAS",
+      "hint": "Queso y tomate"
+    },
+    {
+      "word": "HAMBURGUESA",
+      "category": "COMIDAS",
+      "hint": "Carne y pan"
+    },
+    {
+      "word": "TACO",
+      "category": "COMIDAS",
+      "hint": "Tortilla mexicana"
+    },
+    {
+      "word": "SUSHI",
+      "category": "COMIDAS",
+      "hint": "Arroz y pescado"
+    },
+    {
+      "word": "PASTA",
+      "category": "COMIDAS",
+      "hint": "Espagueti o fettuccine"
+    }
+  ]
+}
+
